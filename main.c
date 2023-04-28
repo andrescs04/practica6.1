@@ -3,10 +3,12 @@
 #include "sqlite3.h"
 
 #define MAX_CHAR 200
+#define MAX 100
 #define COMANDO_INSERT "INSERT INTO agenda(id,nombre,apes,telefono,edad,tipo_contacto) VALUES (%i,'%s','%s','%s',%i,'%s');"
 #define COMANDO_DELETE "DELETE FROM agenda WHERE id = %i;"
 
 void muestraDatos(sqlite3 *db);
+int menu();
 
 static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
     for (int i = 0; i < argc; i++) {
@@ -17,6 +19,7 @@ static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
 }
 
 int main() {
+    menu();
     sqlite3 *db;
     char *zErrMsg = 0;
     int rc;
@@ -97,3 +100,64 @@ void muestraDatos(sqlite3 *db) {
         sqlite3_free(zErrMsg);
     }
 }
+
+int menu() {
+    printf("----- Practica -----\n");
+    printf("Bienvenido a la Agenda: \n");
+    printf("1 - Listado de personas."
+           "\n2 - Nueva persona."
+           "\n3 - Borrar persona."
+           "\n4 - Guardar agenda en fichero de texto"
+           "\n5 - Leer agenda de fichero de texto"
+           "\n0 - Salir.\n");
+    int opcion;
+    //tAgenda agenda;
+    printf("\nElige una opcion: \n");
+    scanf("%i",&opcion);
+
+    //inicializar_agenda(&agenda,20);
+    char nombre_fichero[MAX];
+    while (opcion != 0) {
+        switch (opcion) {
+            case 1:
+                printf("Listado de personas.\n");
+                //listar_personas(&agenda);
+                printf("\nElige una opcion: ");
+                scanf("%i",&opcion);
+                break;
+
+            case 2:
+                printf("Nueva persona.\n");
+                //nueva_persona(&agenda);
+                printf("\nElige una opcion: ");
+                scanf("%i",&opcion);
+                break;
+
+            case 3:
+                printf("Borrar persona.\n");
+                //borrar_persona(&agenda);
+                printf("\nElige una opcion: ");
+                scanf("%i",&opcion);
+                break;
+            case 4:
+                scanf("%s",nombre_fichero);
+                printf("Guardar agenda en fichero de texto.\n");
+                //guardar_fichero(&agenda);
+                printf("\nElige una opcion: ");
+                scanf("%i",&opcion);
+                break;
+            case 5:
+                printf("Leer agenda de fichero de texto.\n");
+                //borrar_persona(&agenda);
+                printf("\nElige una opcion: ");
+                scanf("%i",&opcion);
+                break;
+            default:
+                printf("No introduciste ningun valor correcto.\n");
+                printf("\nElige una opcion: ");
+                scanf("%i",&opcion);
+        }
+    }
+    printf("\nHas terminado la practica.");
+}
+
