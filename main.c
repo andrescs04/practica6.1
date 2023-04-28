@@ -20,6 +20,8 @@ static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
 
 int main() {
     menu();
+
+
     sqlite3 *db;
     char *zErrMsg = 0;
     int rc;
@@ -111,7 +113,18 @@ int menu() {
            "\n5 - Leer agenda de fichero de texto"
            "\n0 - Salir.\n");
     int opcion;
+    sqlite3 *db;
+    char *zErrMsg = 0;
+    int rc;
+    char sql[MAX_CHAR];
+    const char* data = "Callback function called";
     //tAgenda agenda;
+    rc = sqlite3_open("../agenda.db", &db);
+    if (rc) {
+        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+        sqlite3_close(db);
+        return (1);
+    }
     printf("\nElige una opcion: \n");
     scanf("%i",&opcion);
 
@@ -121,14 +134,14 @@ int menu() {
         switch (opcion) {
             case 1:
                 printf("Listado de personas.\n");
-                //listar_personas(&agenda);
+                muestraDatos(db);
                 printf("\nElige una opcion: ");
                 scanf("%i",&opcion);
                 break;
 
             case 2:
                 printf("Nueva persona.\n");
-                //nueva_persona(&agenda);
+                insertar_datos(db);
                 printf("\nElige una opcion: ");
                 scanf("%i",&opcion);
                 break;

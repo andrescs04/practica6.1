@@ -5,9 +5,7 @@
 #ifndef EJEMPLO_SQLITE_C_FUNCIONES_H
 #define EJEMPLO_SQLITE_C_FUNCIONES_H
 
-
-void listar_personas();
-
+void insertar_datos();
 
 
 
