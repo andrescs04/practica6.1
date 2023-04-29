@@ -1,28 +1,19 @@
 #include <stdio.h>
 #include <string.h>
 #include "sqlite3.h"
-
+#include "funciones.h"
 #define MAX_CHAR 200
 #define MAX 100
 #define COMANDO_INSERT "INSERT INTO agenda(id,nombre,apes,telefono,edad,tipo_contacto) VALUES (%i,'%s','%s','%s',%i,'%s');"
 #define COMANDO_DELETE "DELETE FROM agenda WHERE id = %i;"
 
-void muestraDatos(sqlite3 *db);
-int menu();
 
-static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
-    for (int i = 0; i < argc; i++) {
-        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-    }
-    printf("\n");
-    return 0;
-}
+int menu();
 
 int main() {
     menu();
 
-
-    sqlite3 *db;
+    /*sqlite3 *db;
     char *zErrMsg = 0;
     int rc;
     char sql[MAX_CHAR];
@@ -81,27 +72,10 @@ int main() {
 
     // Clausura de conexion
     sqlite3_close(db);
-
+*/
     return 0;
 }
 
-void muestraDatos(sqlite3 *db) {
-    char *zErrMsg = 0;
-    char sql[MAX_CHAR];
-    const char* data = "Callback function called";
-
-    // Creacion de consulta SQL
-    strcpy(sql,"SELECT * FROM agenda");
-
-    // Ejecucion de comando SQL: se invoca la funcion callback para cada
-    // fila del resultado obtenido
-    int rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
-
-    if( rc != SQLITE_OK ) {
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-        sqlite3_free(zErrMsg);
-    }
-}
 
 int menu() {
     printf("----- Practica -----\n");
@@ -118,13 +92,7 @@ int menu() {
     int rc;
     char sql[MAX_CHAR];
     const char* data = "Callback function called";
-    //tAgenda agenda;
-    rc = sqlite3_open("../agenda.db", &db);
-    if (rc) {
-        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-        sqlite3_close(db);
-        return (1);
-    }
+
     printf("\nElige una opcion: \n");
     scanf("%i",&opcion);
 
@@ -148,7 +116,7 @@ int menu() {
 
             case 3:
                 printf("Borrar persona.\n");
-                //borrar_persona(&agenda);
+                borrar_persona();
                 printf("\nElige una opcion: ");
                 scanf("%i",&opcion);
                 break;

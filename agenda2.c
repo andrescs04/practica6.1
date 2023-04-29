@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "malloc.h"
+#include "sqlite3.h"
 #define MAX_PERSONAS 100
 #define MAX 100
 enum contacto{
